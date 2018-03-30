@@ -2,5 +2,5 @@
 set -x
 source env.env
 
-docker build -t ubuntu-ansible-kubectl:"${VERSION}" .
-docker tag ubuntu-ansible-kubectl:"${VERSION}" ubuntu-ansible-kubectl:latest
+docker build -t iotapi322/ubuntu-ansible-kubectl:"${VERSION}" .
+docker tag iotapi322/ubuntu-ansible-kubectl:"${VERSION}" iotapi322/ubuntu-ansible-kubectl:latest

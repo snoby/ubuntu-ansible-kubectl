@@ -3,5 +3,5 @@ set -x
 source env.env
 
 # You must login first
-docker push ubuntu-ansible-kubectl:${VERSION}
-docker push ubuntu-ansible-kubectl:latest
+docker push iotapi322/ubuntu-ansible-kubectl:${VERSION}
+docker push iotapi322/ubuntu-ansible-kubectl:latest
