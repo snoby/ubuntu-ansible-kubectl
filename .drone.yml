@@ -1,14 +1,5 @@
 #
-# This file shows how to pull the kubectl config file out of vault and into a local volume that will be available
-# to each different build step of the drone file.
-#
-# The secret KUBECONFIG64 is a base64 encoded environment that is obtained via vault, if you are running it locally
-# with drone exec you should run the script file 'run_local_test.sh' to get the value from your local environment and
-# to kick off a 'drone exec' run.
-#
-# Finally if you want to see this  example work locally using 'drone exec' and you want to get the actual secret from
-# vault you can do that by trunning 'run_local_test_with_vault.sh'.  NOTE: you must be authenticated to vault before
-# running this script.
+# You can build the container with 'drone exec' it will not push that container to the cisco ECH registry
 #
 pipeline:
   build:
