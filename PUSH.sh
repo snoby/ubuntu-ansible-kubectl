@@ -2,6 +2,6 @@
 set -x
 source env.env
 
-# You must login first
-docker push iotapi322/ubuntu-ansible-kubectl:${VERSION}
-docker push iotapi322/ubuntu-ansible-kubectl:latest
+# You must have logged into containers.cisco.com first
+docker push "$CONTAINER_NAME":"${VERSION}"
+docker push "$CONTAINER_NAME":latest

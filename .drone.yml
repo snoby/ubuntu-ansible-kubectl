@@ -1,0 +1,44 @@
+#
+# This file shows how to pull the kubectl config file out of vault and into a local volume that will be available
+# to each different build step of the drone file.
+#
+# The secret KUBECONFIG64 is a base64 encoded environment that is obtained via vault, if you are running it locally
+# with drone exec you should run the script file 'run_local_test.sh' to get the value from your local environment and
+# to kick off a 'drone exec' run.
+#
+# Finally if you want to see this  example work locally using 'drone exec' and you want to get the actual secret from
+# vault you can do that by trunning 'run_local_test_with_vault.sh'.  NOTE: you must be authenticated to vault before
+# running this script.
+#
+pipeline:
+  build:
+    image: docker:17.05.0-ce-dind
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - apk update && apk add bash curl git
+      - bash BUILD.sh
+
+  # This should only happen when the master branch has been merged.  I will protect the master branch.
+  publish:
+    secrets: [ECH_PASS]
+    image: docker:17.05.0-ce-dind
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - if [ -z "$ECH_PASS" ]; echo "Must define ECH_PASS"; exit 1; fi
+      - docker login -u="tropo_operations+jenkins_tropo" -p="$ECH_PASS" containers.cisco.com
+      - bash PUSH.sh
+    when:
+      branch: master
+      event:  push
+
+secrets:
+  ECH_PASS:
+    driver: vault
+    driver_opts:
+      path: secret/internal/CI/ECH
+      key: pass
+

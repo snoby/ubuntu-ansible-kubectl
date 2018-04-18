@@ -1,6 +1,6 @@
 #!/bin/bash
-set -x
+set -xe
 source env.env
 
-docker build -t iotapi322/ubuntu-ansible-kubectl:"${VERSION}" .
-docker tag iotapi322/ubuntu-ansible-kubectl:"${VERSION}" iotapi322/ubuntu-ansible-kubectl:latest
+docker build -t "$CONTAINER_NAME":"${VERSION}" .
+docker tag "$CONTAINER_NAME":"${VERSION}" "$CONTAINER_NAME":latest
